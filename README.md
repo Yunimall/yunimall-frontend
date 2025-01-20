@@ -1,15 +1,62 @@
+markdown
 # yunimall-frontend
-This repository is for the frontend code of yunimall.
 
-# Setup
-• Firstly, update your nest-cli: npm i -g @nestjs/cli
-• Create vite project - npm create vite@latest desired_name (follow instructions, selecting React and TS respectively).
-• cd into desired_name and npm install
+Welcome to the **yunimall-frontend** repository! This is where all the frontend magic for yunimall happens.
 
-# yunimall-frontend is set up with the following features:
-• Tailwind CSS setup -  npm install -D tailwindcss postcss autoprefixer & npx tailwindcss init -p
-• Components library - to be decided 
-• PWA enabled - npm i vite-plugin-pwa -D
-• Routing (using react-router-dom) -  npm install react-router-dom
-• i18n -   npm install react-i18next i18next & npm install i18next-http-backend i18next-browser-languagedetector
+## Setup
 
+To get started, follow these steps:
+
+- **Update NestJS CLI**:  
+  npm i -g @nestjs/cli
+
+- **Create a Vite Project**:  
+  npm create vite@latest yunimall-frontend
+
+Follow the prompts, choosing **React** and **TypeScript**. 
+
+- **Navigate to the Project Directory**:  
+  cd yunimall-frontend
+
+- **Install Dependencies**:  
+  npm install
+
+## Features
+
+**yunimall-frontend** is equipped with the following features:
+
+- **Tailwind CSS Setup**: 
+  npm install -D tailwindcss postcss autoprefixer
+  npx tailwindcss init -p
+ This setup provides a utility-first CSS framework for rapid UI development.
+
+- **Components Library**:  
+To be decided. We'll integrate a robust library to ensure reusability and consistency across the application.
+
+- **PWA (Progressive Web App) Enabled**:  
+  npm i vite-plugin-pwa -D
+  This makes yunimall accessible offline and provides a native app-like experience.
+
+- **Routing**:  
+Using **react-router-dom** for navigation within the app.
+  npm install react-router-dom
+
+- **Internationalization (i18n)**:  
+With **react-i18next** for handling multiple languages.
+  npm install react-i18next i18next
+  npm install i18next-http-backend i18next-browser-languagedetector
+
+## Contributing
+
+We welcome contributions! If you're interested in helping out:
+
+- Fork the repository.
+- Create your feature branch (`git checkout -b feature/AmazingFeature`).
+- Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+- Push to the branch (`git push origin feature/AmazingFeature`).
+- Open a pull request.
+
+
+---
+
+Thank you for checking out yunimall-frontend. Let's build something great together!
