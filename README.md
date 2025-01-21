@@ -1,4 +1,3 @@
-markdown
 # yunimall-frontend
 
 Welcome to the **yunimall-frontend** repository! This is where all the frontend magic for yunimall happens.
@@ -31,7 +30,9 @@ Follow the prompts, choosing **React** and **TypeScript**.
  This setup provides a utility-first CSS framework for rapid UI development.
 
 - **Components Library**:  
-To be decided. We'll integrate a robust library to ensure reusability and consistency across the application.
+Shadcn: npx shadcn-ui@latest init
+to add component npx shadcn@latest add _component name_
+
 
 - **PWA (Progressive Web App) Enabled**:  
   npm i vite-plugin-pwa -D
