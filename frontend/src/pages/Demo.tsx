@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 
 function Demo() {
-  
+
   const { t, i18n } = useTranslation();
 
   // State for managing the current language
-  const [,setLanguage] = useState<string>(i18n.language || 'en');
+  const [, setLanguage] = useState<string>(i18n.language || 'en');
 
   // Function to change the language
   const changeLanguage = (lng: string) => {
@@ -22,7 +22,9 @@ function Demo() {
     <div>
       <h1>{t('welcome')}</h1>
       <p>{t('description')}</p>
-      <Button onClick={() => navigate("/create-account-buyer")}>Create Account</Button>
+      <Button onClick={() => navigate("/create-account-buyer")} className="mb-4">Create Account</Button>
+      <div className="mb-4"><Button onClick={() => navigate("/create-account-seller")}>Become a Seller</Button></div>
+      <div><Button onClick={() => navigate("/create-product")}>New Product</Button></div>
       <div>
         <button onClick={() => changeLanguage('en')}>English</button>
         <button onClick={() => changeLanguage('es')}>Español</button>
