@@ -53,10 +53,10 @@ const CreateAccountForm = () => {
                     <div className="flex mb-5 space-x-4">
                         {/* Back Arrow Icon */}
                         <img src={back} alt="" onClick={() => navigate(-1)} />
-                        <p className="mt-1 font-bold">Create an account</p>
-
                     </div>
-
+                    <div className="flex mb-5 space-x-4">
+                        <p className="mt-1 font-bold">Create an account</p>
+                    </div>
 
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:space-y-8">
                         <FormField

@@ -23,6 +23,8 @@ function Demo() {
       <h1>{t('welcome')}</h1>
       <p>{t('description')}</p>
       <Button onClick={() => navigate("/create-account-buyer")}>Create Account</Button>
+      <Button onClick={() => navigate("/create-account-seller")}>Become a Seller</Button>
+      <Button onClick={() => navigate("/create-product")}>New Product</Button>
       <div>
         <button onClick={() => changeLanguage('en')}>English</button>
         <button onClick={() => changeLanguage('es')}>Español</button>
