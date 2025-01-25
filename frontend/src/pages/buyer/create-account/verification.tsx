@@ -16,7 +16,7 @@ import back from "@/assets/back.svg";
 
 
 const formSchema = z.object({
-    verification: z.string().min(6, "Invalid Verification details"),
+    verification: z.string().min(5, "Invalid Verification details"),
 });
 
 const Verification = () => {
