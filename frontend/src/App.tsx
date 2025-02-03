@@ -3,7 +3,7 @@ import Demo from './pages/Demo';
 import CreateAccountForm from './pages/buyer/create-account/account';
 import CreatePassword from './pages/buyer/create-account/create-password';
 import Verification from './pages/buyer/create-account/verification';
-import Login from './pages/buyer/auth/login';
+import Login from './pages/auth/login';
 import SellerRegistration from './pages/seller/create-seller/BecomeSeller';
 import KYCRegistration from './pages/seller/create-seller/KYCRegistration';
 import KYCRegistration1 from './pages/seller/create-seller/BVNRegistration';
@@ -22,6 +22,7 @@ import PendingOrderDetail from './pages/seller/home/orders/pending-order-details
 import DeliveredOrderDetail from './pages/seller/home/orders/delivered-order-details';
 import Profile from './pages/seller/home/profile/profile';
 import Rating from './pages/seller/home/ratings/ratings';
+import DealDashboard from './pages/buyer/home/deals/deals';
 
 function App() {
   return (
@@ -33,7 +34,9 @@ function App() {
           <Route path="/create-account-buyer" element={<CreateAccountForm />} />
           <Route path="/create-password" element={<CreatePassword />} />
           <Route path="/verification" element={<Verification />} />
+          <Route path="/buyer" element={<DealDashboard/>} />
           
+
           {/* login */}
           <Route path="/login" element={<Login />} />
           
@@ -42,7 +45,7 @@ function App() {
           <Route path="/create-account-seller/kyc-registration" element={<KYCRegistration />} />
           <Route path="/create-account-seller/bvn-registration" element={<KYCRegistration1 />} />
           <Route path="/create-account-seller/account-created" element={<AccountCreated />} />
-          <Route path="/seller/products" element={<Dashboard />} />
+          <Route path="/seller" element={<Dashboard />} />
           <Route path="/products/:name" element={<ProductDetail />} />
           <Route path="/seller/sales-report" element={<SalesReport />} />
           <Route path="/seller/orders" element={<Orders />} />

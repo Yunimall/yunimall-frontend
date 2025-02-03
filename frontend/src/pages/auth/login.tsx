@@ -14,11 +14,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from "react-router-dom";
 import back from "@/assets/back.svg";
+import SplashScreen from "../../components/ui/splash-screen";
+import { useState } from "react";
 
 
 const formSchema = z.object({
     email: z.string().min(6, "Email must be valid"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
+    password: z.string().min(5, "Password must be at least 6 characters"),
 });
 
 const Login = () => {
@@ -32,10 +34,21 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+    const [showSplash, setShowSplash] = useState(false);
+    const [userType, setUserType] = useState<any | null>(null);
+
+
     const onSubmit = (data: z.infer<typeof formSchema>) => {
         console.log(data);
-        // navigate("/verification");
+
+        // for now password is being passed
+        setUserType(data.password);
+        setShowSplash(true);
     };
+
+    if (showSplash && userType) {
+        return <SplashScreen userType={userType} />;
+    }
 
     return (
         <Form {...form}>

@@ -196,7 +196,7 @@ const CreateAccountForm = () => {
                         </Button>
                         <div className="text-center text-sm mt-4">
                             Already have an account?{" "}
-                            <a href="#" className="text-[#051449]">
+                            <a href="/login" className="text-[#051449]">
                                 Log in
                             </a>
                         </div>
