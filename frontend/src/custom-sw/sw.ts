@@ -16,8 +16,7 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { CacheFirst, 
-  StaleWhileRevalidate 
+import { CacheFirst
 } from 'workbox-strategies';
 
 declare const self: ServiceWorkerGlobalScope;
@@ -33,59 +32,17 @@ precacheAndRoute(self.__WB_MANIFEST);
 
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && (url.pathname.endsWith('.png') || url.pathname.endsWith('.jpg')|| url.pathname.endsWith('.svg')),
+  ({ url }) =>
+    url.origin === self.location.origin &&
+    (url.pathname.endsWith(".png") ||
+      url.pathname.endsWith(".jpg") ||
+      url.pathname.endsWith(".svg")),
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new CacheFirst({
-    cacheName: 'images',
+    cacheName: "images",
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
       // least-recently used images are removed.
-      new ExpirationPlugin({ maxEntries: 50 }),
-    ],
-  })
-);
-
-//Pius included below for caching css and js not embedded in components
-registerRoute(
-  // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && (url.pathname.endsWith('.min.css') || url.pathname.endsWith('.min.js')),
-  // Customize this strategy as needed, e.g., by changing to CacheFirst.
-  new CacheFirst({
-    cacheName: 'nonbundledcssandjs',
-    plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used are removed.
-      new ExpirationPlugin({ maxEntries: 50 }),
-    ],
-  })
-);
-
-
-//Pius included below for caching tenant info, status as well as logo, not embedded in components
-registerRoute(
-  // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && (url.pathname.endsWith('/tenant-info-and-status') || url.pathname.endsWith('/logo')),
-  // Customize this strategy as needed, e.g., by changing to CacheFirst.
-  new CacheFirst({
-    cacheName: 'tenantinfostatusandlogo',
-    plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used images are removed.
-      new ExpirationPlugin({ maxEntries: 50 }),
-    ],
-  })
-);
-
-//Pius included below for product image download caching
-registerRoute(
-  // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && (url.pathname.endsWith('/download') && url.pathname.includes('/product')),
-  // Customize this strategy as needed, e.g., by changing to CacheFirst.
-  new StaleWhileRevalidate({
-    cacheName: 'productimages',
-    plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used are removed.
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
   })
@@ -93,11 +50,12 @@ registerRoute(
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
+
 
 //TODO: Push notification.
 self.addEventListener('push', event => {

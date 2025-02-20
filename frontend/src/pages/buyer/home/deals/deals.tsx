@@ -23,25 +23,25 @@ interface Deal {
 
 const deals: Record<string, Deal[]> = {
     topDeals: [
-        { id: 1, name: "Item Name", brand: "Brand", price: "$0.00", image: shoe },
-        { id: 2, name: "Item Name", brand: "Brand", price: "$0.00", image: shirt },
-        { id: 3, name: "Item Name", brand: "Brand", price: "$0.00", image: phone },
-        { id: 4, name: "Item Name", brand: "Brand", price: "$0.00", image: controller },
+        { id: 1, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: shoe },
+        { id: 2, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: shirt },
+        { id: 3, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: phone },
+        { id: 4, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: controller },
     ],
     schoolLife: [
-        { id: 5, name: "Item Name", brand: "Brand", price: "$0.00", image: lamp },
-        { id: 6, name: "Item Name", brand: "Brand", price: "$0.00", image: cases },
-        { id: 7, name: "Item Name", brand: "Brand", price: "$0.00", image: plant },
+        { id: 5, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: lamp },
+        { id: 6, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: cases },
+        { id: 7, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: plant },
     ],
     foodLife: [
-        { id: 8, name: "Item Name", brand: "Brand", price: "$0.00", image: ramen },
-        { id: 9, name: "Item Name", brand: "Brand", price: "$0.00", image: sushi },
+        { id: 8, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: ramen },
+        { id: 9, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: sushi },
     ],
     bestSelling: [
-        { id: 10, name: "Item Name", brand: "Brand", price: "$0.00", image: shoe },
-        { id: 11, name: "Item Name", brand: "Brand", price: "$0.00", image: shirt },
-        { id: 12, name: "Item Name", brand: "Brand", price: "$0.00", image: phone },
-        { id: 13, name: "Item Name", brand: "Brand", price: "$0.00", image: controller },
+        { id: 10, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: shoe },
+        { id: 11, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: shirt },
+        { id: 12, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: phone },
+        { id: 13, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: controller },
     ],
 };
 
@@ -51,6 +51,7 @@ interface SidebarProps {
 }
 
 
+// sidebar
 const Sidebar: React.FC<SidebarProps> = ({ isOpen}) => (
     <div
         className={`pt-4 flex flex-col justify-between fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform ${
@@ -88,6 +89,10 @@ const DealDashboard: React.FC = () => {
         navigate(`/deals/${deal.name.toLowerCase().replace(/\s+/g, '-')}`, { state: deal });
     };
 
+    const handleCartClick = () => {
+        navigate('/cart'); // Navigate to the "/bag" route
+      };
+
     const renderSection = (title: string, items: Deal[], grid: boolean = false) => (
         <div className="mt-6">
             <div className="flex justify-between p-2 pt-4">
@@ -116,12 +121,14 @@ const DealDashboard: React.FC = () => {
                     <img src={box} alt="Menu" onClick={toggleSidebar} className="cursor-pointer" />
                     <div className="flex space-x-6">
                         <img src={search} alt="Search" />
-                        <img src={bag} alt="Bag" />
+                        <img src={bag} alt="Bag" onClick={handleCartClick}/>
                     </div>
                 </div>
                 {renderSection("Top Deal", deals.topDeals)}
                 {renderSection("School Life", deals.schoolLife)}
                 {renderSection("Food Is Life", deals.foodLife)}
+
+                {/* i set true because i want this part to be a grid like structure */}
                 {renderSection("Best Selling Items", deals.bestSelling, true)}
             </div>
         </div>

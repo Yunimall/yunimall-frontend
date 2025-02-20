@@ -23,6 +23,10 @@ import DeliveredOrderDetail from './pages/seller/home/orders/delivered-order-det
 import Profile from './pages/seller/home/profile/profile';
 import Rating from './pages/seller/home/ratings/ratings';
 import DealDashboard from './pages/buyer/home/deals/deals';
+import DealDetail from './pages/buyer/home/deals/deal-details';
+import { Cart } from './pages/buyer/home/cart/cart';
+import { CheckoutPage } from './pages/buyer/home/cart/checkout';
+import { CongratulationsPage } from './pages/buyer/home/cart/congratulations';
 
 function App() {
   return (
@@ -34,8 +38,14 @@ function App() {
           <Route path="/create-account-buyer" element={<CreateAccountForm />} />
           <Route path="/create-password" element={<CreatePassword />} />
           <Route path="/verification" element={<Verification />} />
-          <Route path="/buyer" element={<DealDashboard/>} />
           
+          {/*  */}
+          <Route path="/buyer" element={<DealDashboard/>} />
+          <Route path="/deals/:name" element={<DealDetail />} />
+          {/*  */}
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/congratulations" element={<CongratulationsPage />} />
 
           {/* login */}
           <Route path="/login" element={<Login />} />
@@ -45,8 +55,12 @@ function App() {
           <Route path="/create-account-seller/kyc-registration" element={<KYCRegistration />} />
           <Route path="/create-account-seller/bvn-registration" element={<KYCRegistration1 />} />
           <Route path="/create-account-seller/account-created" element={<AccountCreated />} />
+          
+          {/*  */}
           <Route path="/seller" element={<Dashboard />} />
           <Route path="/products/:name" element={<ProductDetail />} />
+          {/*  */}
+
           <Route path="/seller/sales-report" element={<SalesReport />} />
           <Route path="/seller/orders" element={<Orders />} />
           <Route path="/orders/pending/:name" element={<PendingOrderDetail />} />

@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import back from "@/assets/back.svg";
-import right from "@/assets/arrow-right.svg";
 import star from "@/assets/gold-star.svg";
 import { Button } from '@/components/ui/button';
+import vase from '@/assets/vase.png';
+import plant from '@/assets/plant.png';
+import phone from '@/assets/phone.png';
+import controller from '@/assets/controller.png';
+
+interface Product {
+    id: number;
+    name: string;
+    brand: string;
+    price: string;
+    image: string;
+}
+
+const products: Product[] = [
+    { id: 1, name: 'Vase with Flowers', brand: 'Brand', price: '$0.00', image: vase },
+    { id: 2, name: 'Potted Plant', brand: 'Brand', price: '$0.00', image: plant },
+    { id: 3, name: 'Vintage Telephone', brand: 'Brand', price: '$0.00', image: phone },
+    { id: 4, name: 'Game Controller', brand: 'Brand', price: '$0.00', image: controller },
+];
+
 
 const DealDetail: React.FC = () => {
     const navigate = useNavigate();
@@ -11,6 +30,22 @@ const DealDetail: React.FC = () => {
     const product = location.state; // Access the product data passed via state
 
     if (!product) return <p>Product not found!</p>;
+
+    // State to manage the quantity value
+    const [quantity, setQuantity] = useState(1);
+
+    // Function to handle increment
+    const handleIncrement = () => {
+        setQuantity(quantity + 1);
+    };
+
+    // Function to handle decrement
+    const handleDecrement = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
+
 
     return (
         <div className="max-w-full mx-auto ">
@@ -37,18 +72,76 @@ const DealDetail: React.FC = () => {
 
                 <p className="text-xl text-black font-bold mb-4">{product.price}</p>
                 <p className="text-gray-600 text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipis cing elit.
+                    rarrrr ipsum dolor sit amet, consectetur adipis cing elit.
                     Ultricies eleifend eget ut proin id pulvi nar faucibus.
                     Vulputate massa eget ipsum mus nullam. Mauris praesent duis...
                 </p>
-                <div className='flex space-x-3 mt-4'>
-                    <p className="text-black font-bold">Read More</p>
-                    <img className='pt-1' src={right} alt="" />
+
+                <div className="flex items-center justify-between mt-4">
+                    {/* Seller Info */}
+                    <div className="flex flex-row items-center space-x-3">
+                        <div>
+                            <p className="text-gray-500 text-sm">Seller</p>
+                            <img
+                                src="https://via.placeholder.com/40" // Replace with actual seller image URL
+                                alt="Seller"
+                                className="w-10 h-10 rounded-full"
+                            />
+                        </div>
+                        <div>
+                            <p className="font-semibold">Ireayo Olota</p>
+                        </div>
+                    </div>
+
+                    {/* Quantity Selector */}
+                    <div>
+                        <p className="text-gray-500 text-sm">Quantity</p>
+                        <div className="flex items-center border rounded-lg">
+                            {/* Decrement Button */}
+                            <button
+                                className="px-2 py-1 text-lg text-gray-600"
+                                onClick={handleDecrement}
+                            >
+                                −
+                            </button>
+
+                            {/* Quantity Display */}
+                            <span className="px-3 py-1 font-semibold">{quantity}</span>
+
+                            {/* Increment Button */}
+                            <button
+                                className="px-2 py-1 text-lg text-white bg-blue-900 rounded-r-lg"
+                                onClick={handleIncrement}
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="flex flex-col mt-6 space-y-3">
-                    <Button className="px-4 py-2 bg-[#051449] h-[48px] text-white rounded-md">Edit product</Button>
-                    <Button className="px-4 py-2 bg-[#FFC7C7] h-[48px] text-[#F92D2D] font-bold rounded-md">Delete product</Button>
+                    <Button className="px-4 py-2 bg-[#051449] h-[48px] text-white rounded-md">Add to cart</Button>
+                </div>
+
+                {/* Product List */}
+                <h2 className="text-lg font-bold pt-6 pb-2">People also buy</h2>
+                <div className="grid grid-cols-2 gap-4 lg:grid-cols-7">
+                    {products.map((product) => (
+                        <div
+                            key={product.id}
+                            className="border rounded-md p-4 cursor-pointer"
+                        // onClick={() => handleProductClick(product)}
+                        >
+                            <img
+                                src={product.image}
+                                alt={product.name}
+                                className="w-full h-32 object-cover rounded-md mb-2"
+                            />
+                            <h3 className="font-semibold">{product.name}</h3>
+                            <p className="text-gray-500">{product.brand}</p>
+                            <p className="text-black font-bold">{product.price}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
