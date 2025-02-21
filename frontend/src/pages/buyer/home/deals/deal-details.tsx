@@ -89,7 +89,12 @@ const DealDetail: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <p className="font-semibold">Ireayo Olota</p>
+                            <p
+                                className="font-semibold cursor-pointer text-[#051449] hover:underline"
+                                onClick={() => navigate("/buyer/seller-profile")}
+                            >
+                                Ireayo Olota
+                            </p>
                         </div>
                     </div>
 
@@ -110,7 +115,7 @@ const DealDetail: React.FC = () => {
 
                             {/* Increment Button */}
                             <button
-                                className="px-2 py-1 text-lg text-white bg-blue-900 rounded-r-lg"
+                                className="px-2 py-1 text-lg text-white bg-[#051449] rounded-r-lg"
                                 onClick={handleIncrement}
                             >
                                 +
