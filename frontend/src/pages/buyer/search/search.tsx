@@ -39,14 +39,14 @@ const RecommendedPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white relative">
+        <div className="min-h-screen bg-white relative p-4">
             {/* Header */}
-            <div className="flex items-center p-4 border-b">
-                <button onClick={() => navigate(-1)}>
-                    <img src={backIcon} alt="Back" className="w-5 h-5 mr-4" />
-                </button>
-                <h2 className="text-lg font-bold">Search</h2>
-            </div>
+            <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2 pt-5 mb-6 space-x-1">
+                        <img src={backIcon} alt="" onClick={() => navigate(-1)} />
+                        <h2 className="text-xl font-bold pb-1">Search</h2>
+                    </div>
+                </div>
 
             {/* Search and Sort */}
             <div className="p-4 space-y-4">

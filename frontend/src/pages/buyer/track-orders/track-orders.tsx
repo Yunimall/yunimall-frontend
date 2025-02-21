@@ -16,14 +16,14 @@ const TrackOrders = () => {
     };
 
     return (
-        <div className="bg-white-500 bg-opacity-75 flex justify-center items-center z-50 min-h-screen">
-            <div className="bg-white rounded-lg md:shadow-lg w-full max-w-[1000px] lg:w-full mx-auto p-10 md:p-12 overflow-y-auto">
-                {/* Header Section */}
-                <div className="flex items-center mb-4 space-x-4">
-                    <button onClick={() => navigate(-1)} className="cursor-pointer text-[#051449] font-bold text-lg">
-                        <img src={backIcon} alt="Back" className="w-5 h-5" />
-                    </button>
-                    <h2 className="text-xl font-bold">Track Order</h2>
+        <div className="bg-white-500 bg-opacity-75  z-50 min-h-screen">
+            <div className="bg-white rounded-lg md:shadow-lg w-full max-w-[1000px] lg:w-full mx-auto p-4 md:p-4 overflow-y-auto">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2 pt-5 mb-6 space-x-1">
+                        <img src={backIcon} alt="" onClick={() => navigate(-1)} />
+                        <h2 className="text-xl font-bold pb-1">Track Order</h2>
+                    </div>
                 </div>
 
                 {/* Line Separator */}

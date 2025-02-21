@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import BackIcon from '@/assets/back.svg';
-
+import back from "@/assets/back.svg";
 
 const vendors = [
     { id: 1, name: "Vendor Name", rating: 4.5, reviews: 12 },
@@ -17,11 +16,11 @@ const FollowedVendors = () => {
     return (
         <div className="p-4">
             {/* Header */}
-            <div className="flex items-center mb-4">
-                <button onClick={() => navigate(-1)} className="mr-2">
-                    <img src={BackIcon} alt="Back" className="w-6 h-6" />
-                </button>
-                <h2 className="text-xl font-bold">Followed vendors</h2>
+            <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2 pt-5 mb-6 space-x-1">
+                    <img src={back} alt="" onClick={() => navigate(-1)} />
+                    <h2 className="text-xl font-bold pb-1">Followed Vedors</h2>
+                </div>
             </div>
 
             {/* Vendor List */}

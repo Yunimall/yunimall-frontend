@@ -37,17 +37,14 @@ const AddCardPage: React.FC = () => {
     };
 
     return (
-        <div className="bg-white flex justify-center items-center min-h-screen p-4">
+        <div className="bg-white min-h-screen p-4">
             <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg">
                 {/* Header */}
-                <div className="flex items-center space-x-4 mb-6">
-                    <img
-                        src={back}
-                        alt="Back"
-                        onClick={() => navigate(-1)}
-                        className="cursor-pointer"
-                    />
-                    <h2 className="text-lg font-bold">Add card</h2>
+                <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2 pt-5 mb-6 space-x-1">
+                        <img src={back} alt="" onClick={() => navigate(-1)} />
+                        <h2 className="text-xl font-bold pb-1">Add Card</h2>
+                    </div>
                 </div>
 
                 {/* Form */}
@@ -103,7 +100,7 @@ const AddCardPage: React.FC = () => {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full bg-blue-900 text-white py-3 rounded-lg font-semibold"
+                        className="w-full bg-[#051449] text-white py-3 rounded-lg font-semibold"
                     >
                         Add card
                     </button>

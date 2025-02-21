@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import backIcon from "@/assets/back.svg";
+import back from "@/assets/back.svg";
 import groupIcon from "@/assets/group.svg";
 import mastercardLogo from "@/assets/mastercard.svg";
 import userImage from "@/assets/shirt.svg";
@@ -8,12 +8,14 @@ const BProfile = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white-500 bg-opacity-75 flex justify-center items-center z-50 min-h-screen">
-            <div className="bg-white rounded-lg md:shadow-lg w-full max-w-[1000px] lg:w-full mx-auto p-10 md:p-12 overflow-y-auto">
+        <div className="bg-white-500 bg-opacity-75 z-50 min-h-screen">
+            <div className="bg-white rounded-lg md:shadow-lg w-full max-w-[1000px] lg:w-full mx-auto p-4 overflow-y-auto">
                 {/* Header */}
-                <div className="flex mb-5 space-x-4">
-                    <img src={backIcon} alt="Back" onClick={() => navigate(-1)} className="cursor-pointer" />
-                    <p className="mt-1 font-bold">Profile</p>
+                <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2 pt-5 mb-6 space-x-1">
+                        <img src={back} alt="" onClick={() => navigate(-1)} />
+                        <h2 className="text-xl font-bold pb-1">Profile</h2>
+                    </div>
                 </div>
 
                 {/* Profile Section */}
@@ -28,7 +30,7 @@ const BProfile = () => {
                         <img src={groupIcon} alt="Vendors" className="w-4 h-4" />
                         <span className="text-sm">30 vendors</span>
                     </div>
-                    <button className="px-4 py-1 border rounded-md text-blue-500 font-medium">Edit profile</button>
+                    <button className="px-4 py-1 border rounded-md text-blue-[#051449] font-medium">Edit profile</button>
                 </div>
 
                 {/* User Information */}
@@ -63,7 +65,7 @@ const BProfile = () => {
                                 <p className="text-gray-500 text-sm mt-1">12/34</p>
                             </div>
                             <div className="flex space-x-4">
-                                <button onClick={() => navigate('/buyer/profile/saved-cards')} className="text-blue-500 text-sm font-medium" >Edit</button>
+                                <button onClick={() => navigate('/buyer/profile/saved-cards')} className="text-blue-[#051449] text-sm font-medium" >Edit</button>
                                 <button className="text-red-500 text-sm font-medium">Delete</button>
                             </div>
                         </div>

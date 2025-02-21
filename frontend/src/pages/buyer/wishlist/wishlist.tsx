@@ -33,12 +33,14 @@ const WishlistPage: React.FC = () => {
     };
 
     return (
-        <div className="bg-white-500 bg-opacity-75 flex justify-center items-center z-50 min-h-screen">
-            <div className="bg-white rounded-lg md:shadow-lg w-full max-w-[1000px] lg:w-full mx-auto p-10 md:p-12 overflow-y-auto">
-                <div className="flex mb-5 space-x-4">
-                    {/* Back Arrow Icon */}
-                    <img src={back} alt="Back" onClick={() => navigate(-1)} className="cursor-pointer" />
-                    <p className="mt-1 font-bold">Your Wishlist</p>
+        <div className="bg-white-500 bg-opacity-75 flex z-50 min-h-screen">
+            <div className="bg-white rounded-lg md:shadow-lg w-full max-w-[1000px] lg:w-full mx-auto p-4 md:p-4 overflow-y-auto">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2 pt-5 mb-6 space-x-1">
+                        <img src={back} alt="" onClick={() => navigate(-1)} />
+                        <h2 className="text-xl font-bold pb-1">Wishlist</h2>
+                    </div>
                 </div>
 
                 <hr className="border-t border-gray-300 mb-5" />
