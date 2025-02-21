@@ -7,7 +7,6 @@ import Login from './pages/auth/login';
 import SellerRegistration from './pages/seller/create-seller/BecomeSeller';
 import KYCRegistration from './pages/seller/create-seller/KYCRegistration';
 import KYCRegistration1 from './pages/seller/create-seller/BVNRegistration';
-import AccountCreated from './pages/seller/create-seller/SuccessPage';
 import { FormProvider } from './pages/seller/create-seller/FormContent';
 import AddProductForm from './pages/product/create-product/NewProduct';
 import AddImagesForm from './pages/product/create-product/AddImages';
@@ -37,6 +36,7 @@ import OrderDetails from './pages/buyer/track-orders/order-details';
 import FollowedVendors from './pages/buyer/followed-vendors/following';
 import RecommendedPage from './pages/buyer/search/search';
 import SavedCard from './pages/buyer/profile/saved-cards';
+import { AccountCreated } from './pages/seller/create-seller/SuccessPage';
 
 function App() {
   return (
