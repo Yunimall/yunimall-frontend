@@ -50,35 +50,71 @@ interface SidebarProps {
     toggleSidebar: () => void;
 }
 
+// Sidebar with Navigation Logic
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
+    const navigate = useNavigate();
 
-// sidebar
-const Sidebar: React.FC<SidebarProps> = ({ isOpen}) => (
-    <div
-        className={`pt-4 flex flex-col justify-between fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform ${
-            isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 z-50`}
-    >
-        <ul className="p-4 font-bold space-y-4">
-            {["My profile", "Track Orders", "Wishlist", "Notification", "Customer Care", "Rate"].map(
-                (item, idx) => (
-                    <li key={idx} className="cursor-pointer relative flex items-center">
-                        {item}
-                        {idx === 1 && (
-                            <span className="ml-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                                2
-                            </span>
-                        )}
-                    </li>
-                )
-            )}
-        </ul>
-        <div className="p-4 pb-12 mt-auto border-t">
-            <div className="cursor-pointer font-bold">Create a store</div>
-            <div className="cursor-pointer font-bold mt-2">Log out</div>
+    const handleNavigation = (item: string) => {
+        switch (item) {
+            case "My profile":
+                navigate("/buyer/profile");
+                break;
+            case "Track Orders":
+                navigate("/buyer/track-orders");
+                break;
+            case "Wishlist":
+                navigate("/buyer/wishlist");
+                break;
+            case "Notification":
+                navigate("/buyer/notifications");
+                break;
+            case "Customer Care":
+                navigate("/buyer/customer-care");
+                break;
+            case "Rate":
+                navigate("/buyer/rate");
+                break;
+            default:
+                break;
+        }
+        toggleSidebar(); // Close sidebar after navigation
+    };
+
+    return (
+        <div
+            className={`pt-4 flex flex-col justify-between fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform ${
+                isOpen ? "translate-x-0" : "-translate-x-full"
+            } transition-transform duration-300 z-50`}
+        >
+            <ul className="p-4 font-bold space-y-4">
+                {["My profile", "Track Orders", "Wishlist", "Notification", "Customer Care", "Rate"].map(
+                    (item, idx) => (
+                        <li
+                            key={idx}
+                            className="cursor-pointer relative flex items-center"
+                            onClick={() => handleNavigation(item)}
+                        >
+                            {item}
+                            {idx === 1 && (
+                                <span className="ml-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                    2
+                                </span>
+                            )}
+                        </li>
+                    )
+                )}
+            </ul>
+            <div className="p-4 pb-12 mt-auto border-t">
+                <div className="cursor-pointer font-bold" onClick={() => navigate("/create-store")}>
+                    Create a store
+                </div>
+                <div className="cursor-pointer font-bold mt-2" onClick={() => navigate("/logout")}>
+                    Log out
+                </div>
+            </div>
         </div>
-    </div>
-);
-
+    );
+};
 
 const DealDashboard: React.FC = () => {
     const navigate = useNavigate();
@@ -90,8 +126,8 @@ const DealDashboard: React.FC = () => {
     };
 
     const handleCartClick = () => {
-        navigate('/cart'); // Navigate to the "/bag" route
-      };
+        navigate('/cart');
+    };
 
     const renderSection = (title: string, items: Deal[], grid: boolean = false) => (
         <div className="mt-6">
@@ -120,15 +156,13 @@ const DealDashboard: React.FC = () => {
                 <div className="m-2 pt-5 flex justify-between">
                     <img src={box} alt="Menu" onClick={toggleSidebar} className="cursor-pointer" />
                     <div className="flex space-x-6">
-                        <img src={search} alt="Search" />
-                        <img src={bag} alt="Bag" onClick={handleCartClick}/>
+                        <img src={search} alt="Search" onClick={() => navigate("/buyer/search")} />
+                        <img src={bag} alt="Bag" onClick={handleCartClick} />
                     </div>
                 </div>
                 {renderSection("Top Deal", deals.topDeals)}
                 {renderSection("School Life", deals.schoolLife)}
                 {renderSection("Food Is Life", deals.foodLife)}
-
-                {/* i set true because i want this part to be a grid like structure */}
                 {renderSection("Best Selling Items", deals.bestSelling, true)}
             </div>
         </div>
