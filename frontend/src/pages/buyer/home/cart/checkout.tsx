@@ -101,7 +101,12 @@ export function CheckoutPage() {
             <div className="border-b pb-4 mb-4">
                 <div className="flex justify-between items-center">
                     <p className="text-sm font-semibold text-gray-500">YOUR CARD</p>
-                    <button className="text-[#051449] text-sm">Add new card</button>
+                    <button
+                        className="text-[#051449] text-sm"
+                        onClick={() => navigate("/buyer/add-card")}
+                    >
+                        Add new card
+                    </button>
                 </div>
                 <Card className="mt-2">
                     <CardContent className="p-3 flex items-center justify-between ">
@@ -110,7 +115,7 @@ export function CheckoutPage() {
                             <p className="text-sm text-gray-500">{cardDetails.expiry}</p>
                         </div>
                         <div className="text-[#051449] text-sm space-y-8">
-                            <img src={mastercard} alt="" className="pl-12"/>
+                            <img src={mastercard} alt="" className="pl-12" />
                             <button>Edit</button> <span>•</span> <button>Delete</button>
                         </div>
                     </CardContent>

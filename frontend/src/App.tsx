@@ -27,6 +27,16 @@ import DealDetail from './pages/buyer/home/deals/deal-details';
 import { Cart } from './pages/buyer/home/cart/cart';
 import { CheckoutPage } from './pages/buyer/home/cart/checkout';
 import { CongratulationsPage } from './pages/buyer/home/cart/congratulations';
+import ProfilePage from './pages/buyer/profile/profile';
+import BProfile from './pages/buyer/profile/buyer-profile';
+import WishlistPage from './pages/buyer/wishlist/wishlist';
+import AddCardPage from './pages/buyer/add-card/add-card';
+import NotificationPage from './pages/buyer/notifications/notifications';
+import TrackOrders from './pages/buyer/track-orders/track-orders';
+import OrderDetails from './pages/buyer/track-orders/order-details';
+import FollowedVendors from './pages/buyer/followed-vendors/following';
+import RecommendedPage from './pages/buyer/search/search';
+import SavedCard from './pages/buyer/profile/saved-cards';
 
 function App() {
   return (
@@ -41,6 +51,16 @@ function App() {
           
           {/*  */}
           <Route path="/buyer" element={<DealDashboard/>} />
+          <Route path="/buyer/seller-profile" element={<ProfilePage/>} />
+          <Route path="/buyer/profile" element={<BProfile/>} />
+          <Route path="/buyer/profile/saved-cards" element={<SavedCard/>} />
+          <Route path="/buyer/wishlist" element={<WishlistPage/>} />
+          <Route path="/buyer/add-card" element={<AddCardPage/>} />
+          <Route path="/buyer/notifications" element={<NotificationPage/>} />
+          <Route path="/buyer/track-orders" element={<TrackOrders/>} />
+          <Route path="/buyer/track-orders/:id" element={<OrderDetails />} />
+          <Route path="/buyer/followed-vendors" element={<FollowedVendors />} />
+          <Route path="/buyer/search" element={<RecommendedPage />} />
           <Route path="/deals/:name" element={<DealDetail />} />
           {/*  */}
           <Route path="/cart" element={<Cart />} />
