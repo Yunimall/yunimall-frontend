@@ -19,10 +19,10 @@ const ProductCreationSuccess = () => {
 
                 {/* Text */}
                 <h1 className="text-xl font-semibold">Congratulations</h1>
-                <p className="text-gray-600 mt-2">Your card has been added</p>
+                <p className="text-gray-600 mt-2">Your product has been added</p>
 
                 {/* Button */}
-                <Button className="mt-6 bg-[#051449] text-white px-6 py-3 rounded-lg w-full" onClick={() => navigate("/")}>
+                <Button className="mt-6 bg-[#051449] text-white px-6 py-3 rounded-lg w-full" onClick={() => navigate("/seller")}>
                     Okay
                 </Button>
             </div>

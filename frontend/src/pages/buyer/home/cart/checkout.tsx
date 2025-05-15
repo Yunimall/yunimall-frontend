@@ -38,7 +38,7 @@ export function CheckoutPage() {
     const navigate = useNavigate();
 
     const handleConfirmOrder = () => {
-        navigate("/congratulations");
+        navigate("/buyer/congratulations");
     };
     return (
         <div className="p-6 max-w-lg mx-auto">

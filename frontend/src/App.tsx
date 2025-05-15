@@ -1,17 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Demo from './pages/Demo';
-import CreateAccountForm from './pages/buyer/create-account/account';
-import CreatePassword from './pages/buyer/create-account/create-password';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import CreateAccountForm from './pages/buyer/create-account/buyer-registration';
 import Verification from './pages/buyer/create-account/verification';
 import Login from './pages/auth/login';
-import SellerRegistration from './pages/seller/create-seller/BecomeSeller';
-import KYCRegistration from './pages/seller/create-seller/KYCRegistration';
-import KYCRegistration1 from './pages/seller/create-seller/BVNRegistration';
-import { FormProvider } from './pages/seller/create-seller/FormContent';
+import SellerRegistration from './pages/seller/create-seller/seller-registration';
 import AddProductForm from './pages/product/create-product/NewProduct';
-import AddImagesForm from './pages/product/create-product/AddImages';
-import DeliveryOptionForm from './pages/product/create-product/DeliveryOption';
-import ProductPreview from './pages/product/create-product/Preview';
 import ProductCreationSuccess from './pages/product/create-product/Success';
 import Dashboard from './pages/seller/home/products/products';
 import ProductDetail from './pages/seller/home/products/product-details';
@@ -37,66 +29,69 @@ import FollowedVendors from './pages/buyer/followed-vendors/following';
 import RecommendedPage from './pages/buyer/search/search';
 import SavedCard from './pages/buyer/profile/saved-cards';
 import { AccountCreated } from './pages/seller/create-seller/SuccessPage';
+import NoMatch from './pages/no-match/NoMatch';
+import BuyerProtectedRoute from './utils/BuyerProtectedRoute';
+import SellerProtectedRoute from './utils/SellerProtectedRoute';
+import HeroUi from './pages/landingPage';
 
 function App() {
   return (
-    <FormProvider>
-      <Router>
-        <Routes>
-          {/* buyer */}
-          <Route path="/" element={<Demo />} />
-          <Route path="/create-account-buyer" element={<CreateAccountForm />} />
-          <Route path="/create-password" element={<CreatePassword />} />
-          <Route path="/verification" element={<Verification />} />
-          
-          {/*  */}
-          <Route path="/buyer" element={<DealDashboard/>} />
-          <Route path="/buyer/seller-profile" element={<ProfilePage/>} />
-          <Route path="/buyer/profile" element={<BProfile/>} />
-          <Route path="/buyer/profile/saved-cards" element={<SavedCard/>} />
-          <Route path="/buyer/wishlist" element={<WishlistPage/>} />
-          <Route path="/buyer/add-card" element={<AddCardPage/>} />
-          <Route path="/buyer/notifications" element={<NotificationPage/>} />
-          <Route path="/buyer/track-orders" element={<TrackOrders/>} />
-          <Route path="/buyer/track-orders/:id" element={<OrderDetails />} />
-          <Route path="/buyer/followed-vendors" element={<FollowedVendors />} />
-          <Route path="/buyer/search" element={<RecommendedPage />} />
-          <Route path="/deals/:name" element={<DealDetail />} />
-          {/*  */}
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/congratulations" element={<CongratulationsPage />} />
+    <BrowserRouter>
+      <Routes>
+        {/* others */}
+        <Route path="/" element={<HeroUi />} />
+        <Route path="/create-account-buyer" element={<CreateAccountForm />} />
+        <Route path="/verification" element={<Verification />} />
 
-          {/* login */}
-          <Route path="/login" element={<Login />} />
-          
-          {/* seller */}
-          <Route path="/create-account-seller" element={<SellerRegistration />} />
-          <Route path="/create-account-seller/kyc-registration" element={<KYCRegistration />} />
-          <Route path="/create-account-seller/bvn-registration" element={<KYCRegistration1 />} />
-          <Route path="/create-account-seller/account-created" element={<AccountCreated />} />
-          
-          {/*  */}
-          <Route path="/seller" element={<Dashboard />} />
-          <Route path="/products/:name" element={<ProductDetail />} />
-          {/*  */}
+        {/* login */}
+        <Route path="/login" element={<Login />} />
 
-          <Route path="/seller/sales-report" element={<SalesReport />} />
-          <Route path="/seller/orders" element={<Orders />} />
-          <Route path="/orders/pending/:name" element={<PendingOrderDetail />} />
-          <Route path="/orders/delivered/:name" element={<DeliveredOrderDetail />} />
-          <Route path="/seller/profile" element={<Profile />} />
-          <Route path="/seller/products/ratings" element={<Rating/>} />
+        {/* buyer */}
+        <Route path="/buyer" element={<BuyerProtectedRoute />}>
+          <Route index element={<DealDashboard />} />
+          <Route path="seller-profile" element={<ProfilePage />} />
+          <Route path="profile" element={<BProfile />} />
+          <Route path="profile/saved-cards" element={<SavedCard />} />
+          <Route path="wishlist" element={<WishlistPage />} />
+          <Route path="add-card" element={<AddCardPage />} />
+          <Route path="notifications" element={<NotificationPage />} />
+          <Route path="track-orders" element={<TrackOrders />} />
+          <Route path="track-orders/:id" element={<OrderDetails />} />
+          <Route path="followed-vendors" element={<FollowedVendors />} />
+          <Route path="search" element={<RecommendedPage />} />
+          <Route path="deals/:name" element={<DealDetail />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="congratulations" element={<CongratulationsPage />} />
+          <Route path="create-account-seller" element={<SellerRegistration />} />
+          <Route path="create-account-seller/account-created" element={<AccountCreated />} />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
 
-          {/* product */}
-          <Route path="/create-product" element={<AddProductForm />} />
-          <Route path="/create-product/add-images" element={<AddImagesForm />} />
-          <Route path="/create-product/delivery-option" element={<DeliveryOptionForm />} />
-          <Route path="/create-product/preview" element={<ProductPreview />} />
-          <Route path="/create-product/success" element={<ProductCreationSuccess />} />
-        </Routes>
-      </Router>
-    </FormProvider>
+        {/* seller */}
+        <Route path="/seller" element={<SellerProtectedRoute />}>
+          <Route index element={<Dashboard />} />
+          <Route path="products/:name" element={<ProductDetail />} />
+          <Route path="sales-report" element={<SalesReport />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="orders/pending/:name" element={<PendingOrderDetail />} />
+          <Route path="orders/delivered/:name" element={<DeliveredOrderDetail />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="products/ratings" element={<Rating />} />
+          <Route path="create-product" element={<AddProductForm />} />
+          {/* <Route path="create-product/add-images" element={<AddImagesForm />} />
+          <Route path="create-product/delivery-option" element={<DeliveryOptionForm />} />
+          <Route path="create-product/preview" element={<ProductPreview />} /> */}
+          <Route path="create-product/success" element={<ProductCreationSuccess />} />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+
+        {/* Using path="*"" means "match anything", so this route
+          acts like a catch-all for URLs that we don't have explicit
+          routes for. */}
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

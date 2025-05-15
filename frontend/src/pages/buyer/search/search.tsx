@@ -82,7 +82,7 @@ const RecommendedPage: React.FC = () => {
                         <div
                             key={item.id}
                             className="border rounded-lg p-2 cursor-pointer"
-                            onClick={() => navigate(`/items/${item.id}`)}
+                            onClick={() => navigate(`/buyer/items/${item.id}`)}
                         >
                             <img src={item.image} alt={item.name} className="w-full h-32 object-cover rounded-md mb-2" />
                             <h4 className="font-semibold text-sm">{item.name}</h4>

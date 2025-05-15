@@ -34,7 +34,7 @@ export function Cart() {
     // Handle checkout button click
     const handleCheckout = () => {
         // Navigate to the checkout page and pass cart data as state
-        navigate("/checkout", { state: { cartItems } });
+        navigate("/buyer/checkout", { state: { cartItems } });
     };
     
 

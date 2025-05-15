@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import box from "@/assets/box.svg";
 import search from "@/assets/search.svg";
@@ -12,6 +12,7 @@ import cases from "@/assets/cases.svg";
 import plant from "@/assets/plant.svg";
 import ramen from "@/assets/ramen.svg";
 import sushi from "@/assets/sushi.svg";
+import Swal from "sweetalert2";
 
 interface Deal {
     id: number;
@@ -80,11 +81,37 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         toggleSidebar(); // Close sidebar after navigation
     };
 
+    const [email, setEmail] = useState<string | null>(null);
+
+    useEffect(() => {
+        // Retrieve Emailfrom localStorage
+        const storedEmail = localStorage.getItem("email");
+        setEmail(storedEmail);
+    }, []);
+
+    const handleLogout = (redirectUrl: string = "/login") => {
+        return () => {
+            localStorage.clear();
+
+            Swal.fire({
+                title: "Logged Out",
+                text: "You have been logged out successfully.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false,
+            });
+
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 1600);
+        };
+    };
     return (
+        
+        // sidebar
         <div
-            className={`pt-4 flex flex-col justify-between fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform ${
-                isOpen ? "translate-x-0" : "-translate-x-full"
-            } transition-transform duration-300 z-50`}
+            className={`pt-4 flex flex-col justify-between fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+                } transition-transform duration-300 z-50`}
         >
             <ul className="p-4 font-bold space-y-4">
                 {["My profile", "Track Orders", "Wishlist", "Notification", "Customer Care", "Rate"].map(
@@ -105,10 +132,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
                 )}
             </ul>
             <div className="p-4 pb-12 mt-auto border-t">
-                <div className="cursor-pointer font-bold" onClick={() => navigate("/create-store")}>
+                <div className="cursor-pointer font-bold">
+                    Hi, {email}
+                </div>
+                <div className="cursor-pointer font-bold" onClick={() => navigate("/buyer/create-account-seller")}>
                     Create a store
                 </div>
-                <div className="cursor-pointer font-bold mt-2" onClick={() => navigate("/logout")}>
+                <div className="cursor-pointer font-bold mt-2" onClick={handleLogout("/login")}>
                     Log out
                 </div>
             </div>
@@ -122,11 +152,11 @@ const DealDashboard: React.FC = () => {
     const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
     const handleDealClick = (deal: Deal) => {
-        navigate(`/deals/${deal.name.toLowerCase().replace(/\s+/g, '-')}`, { state: deal });
+        navigate(`/buyer/deals/${deal.name.toLowerCase().replace(/\s+/g, '-')}`, { state: deal });
     };
 
     const handleCartClick = () => {
-        navigate('/cart');
+        navigate('/buyer/cart');
     };
 
     const renderSection = (title: string, items: Deal[], grid: boolean = false) => (

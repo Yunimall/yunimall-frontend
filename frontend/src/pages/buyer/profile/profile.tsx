@@ -36,7 +36,7 @@ const ProfilePage: React.FC = () => {
     const [sortBy, setSortBy] = useState("Popularity");
 
     const handleDealClick = (deal: Deal) => {
-        navigate(`/deals/${deal.name.toLowerCase().replace(/\s+/g, '-')}`, { state: deal });
+        navigate(`/buyer/deals/${deal.name.toLowerCase().replace(/\s+/g, '-')}`, { state: deal });
     };
 
     return (

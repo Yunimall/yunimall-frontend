@@ -33,13 +33,13 @@ const Orders: React.FC = () => {
     const handlePendingOrderClick = (order: Order) => {
         // Navigate to the product detail page
         const orderRoute = order.name.toLowerCase().replace(/\s+/g, '-'); // Convert name to kebab-case
-        navigate(`/orders/pending/${orderRoute}`, { state: order }); // Pass product as state
+        navigate(`/seller/orders/pending/${orderRoute}`, { state: order }); // Pass product as state
     };
 
     const handleDeliveredOrderClick = (order: Order) => {
         // Navigate to the product detail page
         const orderRoute = order.name.toLowerCase().replace(/\s+/g, '-'); // Convert name to kebab-case
-        navigate(`/orders/delivered/${orderRoute}`, { state: order }); // Pass product as state
+        navigate(`/seller/orders/delivered/${orderRoute}`, { state: order }); // Pass product as state
     };
 
     return (

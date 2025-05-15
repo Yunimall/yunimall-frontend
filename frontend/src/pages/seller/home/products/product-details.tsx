@@ -19,7 +19,7 @@ const ProductDetail: React.FC = () => {
 
             {/* Product Details */}
             <img
-                src={product.image}
+                src={product.imageBlob}
                 alt={product.name}
                 className="w-full h-[375px] object-cover  mb-4"
             />
@@ -37,9 +37,7 @@ const ProductDetail: React.FC = () => {
 
                 <p className="text-xl text-black font-bold mb-4">{product.price}</p>
                 <p className="text-gray-600 text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipis cing elit.
-                    Ultricies eleifend eget ut proin id pulvi nar faucibus.
-                    Vulputate massa eget ipsum mus nullam. Mauris praesent duis...
+                    {product.description}
                 </p>
                 <div className='flex space-x-3 mt-4'>
                     <p className="text-black font-bold">Read More</p>

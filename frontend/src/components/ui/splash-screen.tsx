@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 
 // for now, the user type value is password
-const SplashScreen = ({ userType } : any) => {
-  const navigate = useNavigate();
-  const [_visible, setVisible] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(false);
-      navigate(userType === "seller" ? "/seller" : "/buyer");
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [navigate, userType]);
+const SplashScreen = () => {
 
   return (
     <motion.div
