@@ -49,7 +49,7 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* buyer */}
-        {/* TODO: Group products by buyer name */}
+        {/* TODO: Group products by buyers name */}
         <Route path="/buyer" element={<BuyerProtectedRoute />}>
           
             <Route index element={<DealDashboard />} />
