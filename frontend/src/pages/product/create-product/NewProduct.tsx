@@ -40,6 +40,7 @@ const AddProductForm: React.FC = () => {
     const navigate = useNavigate();
     const [image, setImage] = useState<{ preview: string; file: File } | null>(null);
     const [selectedOption, setSelectedOption] = useState<string>('all');
+    const [loading, setLoading] = useState(false);
 
     const handleOptionChange = (option: string) => {
         setSelectedOption(option);
@@ -71,8 +72,11 @@ const AddProductForm: React.FC = () => {
         },
     });
 
+    // api url
+    const API_URL = import.meta.env.VITE_API_URL;
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
+        setLoading(true);
         console.log("Submitted Data:", data);
         try {
             // // Only send startDate and endDate to the API
@@ -89,11 +93,11 @@ const AddProductForm: React.FC = () => {
             };
 
 
-            const token = localStorage.getItem("access token"); // or whatever key you used
+            const token = localStorage.getItem("accessToken"); // or whatever key you used
 
             // Make the POST request with the token in the header
             const response = await axios.post(
-                "/api/product",
+                `${API_URL}/api/product`,
                 apidata,
                 {
                     headers: {
@@ -115,11 +119,13 @@ const AddProductForm: React.FC = () => {
                 text: errorMessage,
                 confirmButtonColor: "#003F88",
             });
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleDone = () => {
-        form.handleSubmit(onSubmit);
+        form.handleSubmit(onSubmit)();
     };
 
     return (
@@ -388,7 +394,8 @@ const AddProductForm: React.FC = () => {
 
                                 {/* Submit Button */}
                                 <Button className="w-full bg-[#051449] text-white py-3 mt-6" type="button"
-                                    onClick={handleDone}>
+                                    onClick={handleDone}
+                                    loading={loading}>
                                     Done
                                 </Button>
                             </div>

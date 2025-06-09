@@ -37,7 +37,9 @@ const Login = () => {
     const navigate = useNavigate();
     const [showSplash, setShowSplash] = useState(false);
     const [loading, setLoading] = useState(false);
-   
+
+    // api url
+    const API_URL = import.meta.env.VITE_API_URL;
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
         setLoading(true);
@@ -51,7 +53,7 @@ const Login = () => {
             };
 
             // Make the POST request with the token in the header
-            const response = await axios.post("/api/auth/login", apidata);
+            const response = await axios.post(`${API_URL}/api/auth/login`, apidata);
             const token = response.data.accessToken
             console.log(response);
             localStorage.setItem("email", data.email);
@@ -116,7 +118,7 @@ const Login = () => {
                     <div className="md:mb-48">  {/* This div will contain everything above the "Don't have an account?" */}
                         <div className="flex mb-5 space-x-4">
                             {/* Back Arrow Icon */}
-                            <img src={back} alt="" onClick={() => navigate(-1)} />
+                            <img src={back} alt="" onClick={() => navigate('/')} />
                             <p className="mt-1 font-bold">Log In</p>
                         </div>
 
@@ -151,7 +153,6 @@ const Login = () => {
                             <div className="flex justify-end font-thin">
                                 <a>Forgot password</a>
                             </div>
-                            {/* TODO: Add loading state to all buttons */}
                             <Button
                                 className="w-full bg-[#051449] text-white py-3"
                                 type="button"

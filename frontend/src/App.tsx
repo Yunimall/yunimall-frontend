@@ -34,6 +34,8 @@ import BuyerProtectedRoute from './utils/BuyerProtectedRoute';
 import SellerProtectedRoute from './utils/SellerProtectedRoute';
 import HeroUi from './pages/landingPage';
 
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -47,25 +49,29 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* buyer */}
+        {/* TODO: Group products by buyer name */}
+        {/* TODO: Add loading states to all buttons */}
+        {/* TODO: create an .env file with the API key for production */}
         <Route path="/buyer" element={<BuyerProtectedRoute />}>
-          <Route index element={<DealDashboard />} />
-          <Route path="seller-profile" element={<ProfilePage />} />
-          <Route path="profile" element={<BProfile />} />
-          <Route path="profile/saved-cards" element={<SavedCard />} />
-          <Route path="wishlist" element={<WishlistPage />} />
-          <Route path="add-card" element={<AddCardPage />} />
-          <Route path="notifications" element={<NotificationPage />} />
-          <Route path="track-orders" element={<TrackOrders />} />
-          <Route path="track-orders/:id" element={<OrderDetails />} />
-          <Route path="followed-vendors" element={<FollowedVendors />} />
-          <Route path="search" element={<RecommendedPage />} />
-          <Route path="deals/:name" element={<DealDetail />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="congratulations" element={<CongratulationsPage />} />
-          <Route path="create-account-seller" element={<SellerRegistration />} />
-          <Route path="create-account-seller/account-created" element={<AccountCreated />} />
-          <Route path="*" element={<NoMatch />} />
+          
+            <Route index element={<DealDashboard />} />
+            <Route path="seller-profile" element={<ProfilePage />} />
+            <Route path="profile" element={<BProfile />} />
+            <Route path="profile/saved-cards" element={<SavedCard />} />
+            <Route path="wishlist" element={<WishlistPage />} />
+            <Route path="add-card" element={<AddCardPage />} />
+            <Route path="notifications" element={<NotificationPage />} />
+            <Route path="track-orders" element={<TrackOrders />} />
+            <Route path="track-orders/:id" element={<OrderDetails />} />
+            <Route path="followed-vendors" element={<FollowedVendors />} />
+            <Route path="search" element={<RecommendedPage />} />
+            <Route path="deals/:name" element={<DealDetail />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="congratulations" element={<CongratulationsPage />} />
+            <Route path="create-account-seller" element={<SellerRegistration />} />
+            <Route path="create-account-seller/account-created" element={<AccountCreated />} />
+            <Route path="*" element={<NoMatch />} />
         </Route>
 
         {/* seller */}

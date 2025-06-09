@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import box from "@/assets/box.svg";
 import search from "@/assets/search.svg";
 import bag from "@/assets/bag.svg";
-import shoe from "@/assets/shoe.png";
-import shirt from "@/assets/shirt.svg";
-import phone from "@/assets/phone.png";
-import controller from "@/assets/controller.png";
-import lamp from "@/assets/lamp.svg";
-import cases from "@/assets/cases.svg";
-import plant from "@/assets/plant.svg";
-import ramen from "@/assets/ramen.svg";
-import sushi from "@/assets/sushi.svg";
 import Swal from "sweetalert2";
 
 interface Deal {
@@ -19,32 +11,10 @@ interface Deal {
     name: string;
     brand: string;
     price: string;
-    image: string;
+    imageBlob: string;
 }
 
-const deals: Record<string, Deal[]> = {
-    topDeals: [
-        { id: 1, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: shoe },
-        { id: 2, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: shirt },
-        { id: 3, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: phone },
-        { id: 4, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: controller },
-    ],
-    schoolLife: [
-        { id: 5, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: lamp },
-        { id: 6, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: cases },
-        { id: 7, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: plant },
-    ],
-    foodLife: [
-        { id: 8, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: ramen },
-        { id: 9, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: sushi },
-    ],
-    bestSelling: [
-        { id: 10, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: shoe },
-        { id: 11, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: shirt },
-        { id: 12, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: phone },
-        { id: 13, name: "Item Name", brand: "Brand", price: "NGN 0.00", image: controller },
-    ],
-};
+
 
 interface SidebarProps {
     isOpen: boolean;
@@ -107,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         };
     };
     return (
-        
+
         // sidebar
         <div
             className={`pt-4 flex flex-col justify-between fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform ${isOpen ? "translate-x-0" : "-translate-x-full"
@@ -148,8 +118,63 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
 
 const DealDashboard: React.FC = () => {
     const navigate = useNavigate();
-    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-    const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [deals, setDeals] = useState<Record<string, Deal[]>>({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
+
+    // api url
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    useEffect(() => {
+        const fetchDeals = async () => {
+            const cached = localStorage.getItem("cachedDeals");
+
+            if (cached) {
+                // ✅ Use cached data
+                setDeals(JSON.parse(cached));
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem("accessToken");
+
+                const response = await axios.get(`${API_URL}/api/product`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                const products: Deal[] = response.data;
+
+                if (!Array.isArray(products) || products.length === 0) {
+                    setDeals({});
+                    setError("No products available.");
+                } else {
+                    const groupedDeals: Record<string, Deal[]> = {
+                        topDeals: products.slice(0, 4),
+                        schoolLife: products.slice(4, 7),
+                        foodLife: products.slice(7, 9),
+                        bestSelling: products.slice(9, 13),
+                    };
+
+                    setDeals(groupedDeals);
+                    localStorage.setItem("cachedDeals", JSON.stringify(groupedDeals)); // ✅ Save to cache
+                }
+            } catch (err) {
+                console.error("Error fetching products:", err);
+                setError("Failed to load products.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDeals();
+    }, []);
+
 
     const handleDealClick = (deal: Deal) => {
         navigate(`/buyer/deals/${deal.name.toLowerCase().replace(/\s+/g, '-')}`, { state: deal });
@@ -159,24 +184,30 @@ const DealDashboard: React.FC = () => {
         navigate('/buyer/cart');
     };
 
-    const renderSection = (title: string, items: Deal[], grid: boolean = false) => (
-        <div className="mt-6">
-            <div className="flex justify-between p-2 pt-4">
-                <div className="font-bold">{title}</div>
-                <div className="text-[#051449] cursor-pointer">See All</div>
-            </div>
-            <div className={grid ? "grid grid-cols-2 gap-4" : "flex space-x-4 overflow-x-auto scrollbar-hide p-2"}>
-                {items.map((deal) => (
-                    <div key={deal.id} className="border rounded-md p-4 cursor-pointer min-w-[160px]" onClick={() => handleDealClick(deal)}>
-                        <img src={deal.image} alt={deal.name} className="w-full h-32 object-cover rounded-md mb-2" />
-                        <h3 className="font-semibold">{deal.name}</h3>
-                        <p className="text-gray-500">{deal.brand}</p>
-                        <p className="text-black font-bold">{deal.price}</p>
+    const renderSection = (title: string, items: Deal[] = [], grid: boolean = false) => {
+        return (
+            <div className="mt-6">
+                <div className="flex justify-between p-2 pt-4">
+                    <div className="font-bold">{title}</div>
+                    <div className="text-[#051449] cursor-pointer">See All</div>
+                </div>
+                {items.length === 0 ? (
+                    <p className="text-gray-500 p-2">No products in this category.</p>
+                ) : (
+                    <div className={grid ? "grid grid-cols-2 gap-4" : "flex space-x-4 overflow-x-auto scrollbar-hide p-2"}>
+                        {items.map((deal) => (
+                            <div key={deal.id} className="border rounded-md p-4 cursor-pointer min-w-[160px]" onClick={() => handleDealClick(deal)}>
+                                <img src={deal.imageBlob} alt={deal.name} className="w-full h-32 object-cover rounded-md mb-2" />
+                                <h3 className="font-semibold">{deal.name}</h3>
+                                <p className="text-gray-500">{deal.brand}</p>
+                                <p className="text-black font-bold">₦{deal.price}</p>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                )}
             </div>
-        </div>
-    );
+        );
+    };
 
     return (
         <div className="relative min-h-screen bg-gray-100">
@@ -190,10 +221,19 @@ const DealDashboard: React.FC = () => {
                         <img src={bag} alt="Bag" onClick={handleCartClick} />
                     </div>
                 </div>
-                {renderSection("Top Deal", deals.topDeals)}
-                {renderSection("School Life", deals.schoolLife)}
-                {renderSection("Food Is Life", deals.foodLife)}
-                {renderSection("Best Selling Items", deals.bestSelling, true)}
+
+                {loading ? (
+                    <p className="p-4 text-center">Loading products...</p>
+                ) : error ? (
+                    <p className="p-4 text-center text-red-500">{error}</p>
+                ) : (
+                    <>
+                        {renderSection("Top Deal", deals.topDeals)}
+                        {renderSection("School Life", deals.schoolLife)}
+                        {renderSection("Food Is Life", deals.foodLife)}
+                        {renderSection("Best Selling Items", deals.bestSelling, true)}
+                    </>
+                )}
             </div>
         </div>
     );

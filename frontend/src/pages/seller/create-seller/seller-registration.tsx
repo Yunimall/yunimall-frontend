@@ -42,7 +42,7 @@ const SellerFullRegistration: React.FC = () => {
     const [types, setTypes] = useState<string[]>([]);
     const [frontCard, setFrontCard] = useState<{ preview: string; file: File } | null>(null);
     const [backCard, setBackCard] = useState<{ preview: string; file: File } | null>(null);
-
+    const [loading, setLoading] = useState(false);
 
     const fronthandleFileChange = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -82,7 +82,7 @@ const SellerFullRegistration: React.FC = () => {
 
     const fetchOptions = async () => {
         const fetchedCategories = [
-            "men's clothing", "women's clothing", "bags and accessories", "haircare & wigs",
+            "gadgets", "men's clothing", "women's clothing", "bags and accessories", "haircare & wigs",
             "fragrances & perfumes", "personal care & hygiene", "fitness & supplements",
             "gaming consoles & accessories", "jewelry & watches", "laptops & computers",
             "mobile phones & accessories", "shoe's & footwear", "skincare & cosmetics",
@@ -102,7 +102,7 @@ const SellerFullRegistration: React.FC = () => {
         ];
 
         const fetchedTypes = [
-            "fashion & apparels", "health & beauty", "electronics & gadgets", "real estate & properties",
+            "tech","fashion & apparels", "health & beauty", "electronics & gadgets", "real estate & properties",
             "home & living", "food & beverages", "automobile & accessories", "baby & kids",
             "sports & outdoor", "books & stationery", "entertainment & events", "handmade & crafts",
             "agriculture & farming", "computing & software", "home services & repairs"
@@ -115,7 +115,12 @@ const SellerFullRegistration: React.FC = () => {
     useEffect(() => {
         fetchOptions();
     }, []);
+
+    // api url
+    const API_URL = import.meta.env.VITE_API_URL;
+
     async function onSubmit(data: z.infer<typeof formSchema>) {
+        setLoading(true);
         console.log("Submitted Data:", data);
         try {
 
@@ -129,11 +134,11 @@ const SellerFullRegistration: React.FC = () => {
                 matricNumber: data.matricNumber
             };
 
-            const token = localStorage.getItem("access token"); // or whatever key you used
+            const token = localStorage.getItem("accessToken"); // or whatever key you used
 
             // Make the POST request with the token in the header
             const response = await axios.post(
-                "/api/seller-management/register",
+                `${API_URL}/api/seller-management/register`,
                 apidata,
                 {
                     headers: {
@@ -156,6 +161,8 @@ const SellerFullRegistration: React.FC = () => {
                 text: errorMessage,
                 confirmButtonColor: "#003F88",
             });
+        }finally {
+            setLoading(false);
         }
 
     };
@@ -390,6 +397,7 @@ const SellerFullRegistration: React.FC = () => {
                                 <Button
                                     type="button"
                                     onClick={handleDone}
+                                    loading={loading}
                                     className="w-full bg-[#051449] text-white rounded-md py-3 hover:bg-blue-800 transition duration-300"
                                 >
                                     Done

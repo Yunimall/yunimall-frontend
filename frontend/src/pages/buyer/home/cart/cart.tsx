@@ -1,33 +1,15 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import back from "@/assets/back.svg";
 import { useNavigate } from "react-router-dom";
-import vase from '@/assets/vase.png';
-import controller from '@/assets/controller.png';
+// import vase from '@/assets/vase.png';
+// import controller from '@/assets/controller.png';
+import { useCart } from "@/utils/CartContext";
 
 export function Cart() {
-    // Sample cart items (replace with actual data from backend)
-    const [cartItems, setCartItems] = useState([
-        { id: 1, name: "Item Name", brand: "Brand", price: 0.0, quantity: 1, image: vase },
-        { id: 2, name: "Item Name", brand: "Brand", price: 0.0, quantity: 1, image: controller },
-        { id: 3, name: "Item Name", brand: "Brand", price: 0.0, quantity: 1, image: controller },
-        { id: 4, name: "Item Name", brand: "Brand", price: 0.0, quantity: 1, image: controller },
-    ]);
-
-    // Handle quantity change
-    const updateQuantity = (id: number, change:number ) => {
-        setCartItems((prev) =>
-            prev.map((item) =>
-                item.id === id ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
-            )
-        );
-    };
-
-    // Handle item removal
-    const removeItem = (id:number) => {
-        setCartItems((prev) => prev.filter((item) => item.id !== id));
-    };
+ 
+    const { cartItems, updateQuantity, removeFromCart } = useCart();
 
     const navigate = useNavigate();
 
@@ -87,11 +69,11 @@ export function Cart() {
 
                         <div className="flex flex-col justify-between space-y-12">
                             {/* Price */}
-                            <p className="font-semibold">${item.price.toFixed(2)}</p>
+                            <p className="font-semibold">₦{item.price.toFixed(2)}</p>
                             {/* Remove Button */}
                             <button
                                 className="text-red-500 text-sm"
-                                onClick={() => removeItem(item.id)}
+                                onClick={() => removeFromCart(item.id)}
                             >
                                 Remove
                             </button>

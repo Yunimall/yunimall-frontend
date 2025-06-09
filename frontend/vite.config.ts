@@ -39,17 +39,17 @@ export default defineConfig({
       // },
     }),
   ],
-  server: {
-    proxy: {
-      // proxy's serve as temporary solutions for cors errors
-      "/api": {
-        target: "https://yunimall-backend.onrender.com",
-        // target: "https://sunfish-saving-killdeer.ngrok-free.app",
-        changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    }
-  },
+  // server: {
+  //   proxy: {
+  //     // proxy's serve as temporary solutions for cors errors
+  //     "/api": {
+  //       target: "https://yunimall-backend.onrender.com",
+  //       // target: "https://sunfish-saving-killdeer.ngrok-free.app",
+  //       changeOrigin: true,
+  //       // rewrite: (path) => path.replace(/^\/api/, ""),
+  //     },
+  //   }
+  // },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

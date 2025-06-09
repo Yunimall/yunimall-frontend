@@ -36,6 +36,8 @@ const formSchema = z.object({
 const CreateAccountForm = () => {
     const [currentTab, setCurrentTab] = useState(0);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -49,7 +51,12 @@ const CreateAccountForm = () => {
             confirmPassword: "",
         },
     });
+
+    // api url
+    const API_URL = import.meta.env.VITE_API_URL;
+
     async function onSubmit(data: z.infer<typeof formSchema>) {
+        setLoading(true);
         console.log("Submitted Data:", data);
         try {
 
@@ -65,7 +72,7 @@ const CreateAccountForm = () => {
             };
 
             // Make the POST request with the token in the header
-            const response = await axios.post("/api/user-management/register", apidata);
+            const response = await axios.post(`${API_URL}/api/user-management/register`, apidata);
 
             console.log(response);
             localStorage.setItem("phone", data.phone);
@@ -79,8 +86,9 @@ const CreateAccountForm = () => {
                 text: errorMessage,
                 confirmButtonColor: "#003F88",
             });
+        }finally {
+            setLoading(false);
         }
-
     };
 
     const handleDone = () => {
@@ -291,6 +299,7 @@ const CreateAccountForm = () => {
                                     className="w-full bg-[#051449] text-white py-3"
                                     type="button"
                                     onClick={handleDone}
+                                    loading={loading}
                                 >
                                     Done
                                 </Button>

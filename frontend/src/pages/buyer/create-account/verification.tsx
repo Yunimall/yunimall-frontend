@@ -40,6 +40,9 @@ const Verification = () => {
         setPhone(storedPhone);
     }, []);
 
+    // api url
+    const API_URL = import.meta.env.VITE_API_URL;
+
     async function onSubmit(data: z.infer<typeof formSchema>) {
         console.log("Submitted Data:", data);
         try {
@@ -51,7 +54,7 @@ const Verification = () => {
             };
 
             // Make the POST request with the token in the header
-            const response = await axios.post("/api/user-management/verify-code", apidata);
+            const response = await axios.post(`${API_URL}/api/user-management/verify-code`, apidata);
 
             console.log(response);
             Swal.fire({
@@ -78,7 +81,7 @@ const Verification = () => {
     const handleDone = () => {
         form.handleSubmit(onSubmit)();
     };
-    
+
     const handleResend = async () => {
         try {
 
@@ -87,7 +90,7 @@ const Verification = () => {
             };
 
             // Make the POST request with the token in the header
-            const response = await axios.post("/api/user-management/resend-code", apidata);
+            const response = await axios.post(`${API_URL}/api/user-management/resend-code`, apidata);
 
             console.log(response);
             Swal.fire({
@@ -132,7 +135,7 @@ const Verification = () => {
                                     <FormControl>
                                         <Input
                                             {...field}
-                                            placeholder="&#x25CB;  &#x25CB;  &#x25CB;  &#x25CB;  &#x25CB;" // Grey circle characters
+                                            placeholder="&#x25CB;  &#x25CB;  &#x25CB;  &#x25CB;  &#x25CB;  &#x25CB;" // Grey circle characters
 
                                             maxLength={5}
                                             type="number"

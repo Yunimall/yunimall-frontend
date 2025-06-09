@@ -7,6 +7,8 @@ import vase from '@/assets/vase.png';
 import plant from '@/assets/plant.png';
 import phone from '@/assets/phone.png';
 import controller from '@/assets/controller.png';
+import { useCart } from "@/utils/CartContext";
+import Swal from "sweetalert2";
 
 interface Product {
     id: number;
@@ -14,6 +16,7 @@ interface Product {
     brand: string;
     price: string;
     image: string;
+    imageBlob?: string;
 }
 
 const products: Product[] = [
@@ -46,6 +49,25 @@ const DealDetail: React.FC = () => {
         }
     };
 
+    const { addToCart } = useCart();
+
+    const handleAddToCart = () => {
+        addToCart({
+            id: product.id,
+            name: product.name,
+            brand: product.brand,
+            price: parseFloat(product.price.replace("₦", "")), // ensure number
+            image: product.imageBlob || product.image,
+            quantity
+        })
+        Swal.fire({
+            title: "Item Added to Cart",
+            text: "You have successfully added an item to cart.",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+        });
+    }
 
     return (
         <div className="max-w-full mx-auto ">
@@ -54,7 +76,7 @@ const DealDetail: React.FC = () => {
 
             {/* Product Details */}
             <img
-                src={product.image}
+                src={product.imageBlob}
                 alt={product.name}
                 className="w-full h-[375px] object-cover  mb-4"
             />
@@ -70,7 +92,7 @@ const DealDetail: React.FC = () => {
                 </div>
 
 
-                <p className="text-xl text-black font-bold mb-4">{product.price}</p>
+                <p className="text-xl text-black font-bold mb-4">₦{product.price}</p>
                 <p className="text-gray-600 text-sm">
                     rarrrr ipsum dolor sit amet, consectetur adipis cing elit.
                     Ultricies eleifend eget ut proin id pulvi nar faucibus.
@@ -125,7 +147,12 @@ const DealDetail: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col mt-6 space-y-3">
-                    <Button className="px-4 py-2 bg-[#051449] h-[48px] text-white rounded-md">Add to cart</Button>
+                    <Button
+                        onClick={handleAddToCart}
+                        className="px-4 py-2 bg-[#051449] h-[48px] text-white rounded-md"
+                    >
+                        Add to cart
+                    </Button>
                 </div>
 
                 {/* Product List */}
