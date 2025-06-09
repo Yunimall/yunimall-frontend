@@ -50,8 +50,6 @@ function App() {
 
         {/* buyer */}
         {/* TODO: Group products by buyer name */}
-        {/* TODO: Add loading states to all buttons */}
-        {/* TODO: create an .env file with the API key for production */}
         <Route path="/buyer" element={<BuyerProtectedRoute />}>
           
             <Route index element={<DealDashboard />} />
