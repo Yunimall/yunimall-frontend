@@ -207,7 +207,6 @@ const DealDashboard: React.FC = () => {
                                 <h3 className="font-semibold">{deal.name}</h3>
                                 <p className="text-gray-500">{deal.brand}</p>
                                 <p className="text-black font-bold">₦{deal.price}</p>
-                                <p className="text-gray-500 font-bold">Store Name: {deal.seller.storeName}</p>
                             </div>
                         ))}
                     </div>
