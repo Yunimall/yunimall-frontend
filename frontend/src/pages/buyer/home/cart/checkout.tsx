@@ -631,7 +631,7 @@ export function CheckoutPage() {
             const products = cartItems.map((item: any) => ({
                 productId: item.id,
                 quantity: item.quantity,
-                sellerMatNo: item.sellerMatNo,
+                sellerMatNo: item.matno,
                 amount: item.price
             }));
 

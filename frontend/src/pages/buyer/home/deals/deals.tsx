@@ -7,14 +7,20 @@ import bag from "@/assets/bag.svg";
 import Swal from "sweetalert2";
 
 interface Deal {
-    id: number;
-    name: string;
-    brand: string;
-    price: string;
-    imageBlob: string;
+  id: number; // UUID, not number
+  name: string;
+  brand: string;
+  price: string;
+  imageBlob: string;
+  description: string;
+  deliveryDate: string;
+  deliveryOption: string;
+  numberInStock: number;
+  seller: {
+    matricNumber: string;
+    storeName: string;
+  };
 }
-
-
 
 interface SidebarProps {
     isOpen: boolean;
@@ -201,6 +207,7 @@ const DealDashboard: React.FC = () => {
                                 <h3 className="font-semibold">{deal.name}</h3>
                                 <p className="text-gray-500">{deal.brand}</p>
                                 <p className="text-black font-bold">₦{deal.price}</p>
+                                <p className="text-gray-500 font-bold">Store Name: {deal.seller.storeName}</p>
                             </div>
                         ))}
                     </div>

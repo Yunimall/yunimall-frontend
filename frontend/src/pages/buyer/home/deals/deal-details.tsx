@@ -58,7 +58,8 @@ const DealDetail: React.FC = () => {
             brand: product.brand,
             price: parseFloat(product.price.replace("₦", "")), // ensure number
             image: product.imageBlob || product.image,
-            quantity
+            quantity,
+            matno: product.seller.matricNumber
         })
         Swal.fire({
             title: "Item Added to Cart",
@@ -94,9 +95,7 @@ const DealDetail: React.FC = () => {
 
                 <p className="text-xl text-black font-bold mb-4">₦{product.price}</p>
                 <p className="text-gray-600 text-sm">
-                    rarrrr ipsum dolor sit amet, consectetur adipis cing elit.
-                    Ultricies eleifend eget ut proin id pulvi nar faucibus.
-                    Vulputate massa eget ipsum mus nullam. Mauris praesent duis...
+                    {product.description}
                 </p>
 
                 <div className="flex items-center justify-between mt-4">
@@ -115,7 +114,7 @@ const DealDetail: React.FC = () => {
                                 className="font-semibold cursor-pointer text-[#051449] hover:underline"
                                 onClick={() => navigate("/buyer/seller-profile")}
                             >
-                                Ireayo Olota
+                                {product.seller.storeName}
                             </p>
                         </div>
                     </div>
